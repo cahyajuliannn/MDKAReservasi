@@ -24,10 +24,14 @@ namespace MDKAReservasi
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/themes/base/jquery-ui.min.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/validasi").Include(
                       "~/Scripts/Validasi.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/validasiR").Include(
+                      "~/Scripts/ValidasiReservasi.js"));
         }
     }
 }

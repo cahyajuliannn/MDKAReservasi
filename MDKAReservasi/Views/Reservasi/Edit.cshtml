@@ -1,0 +1,77 @@
+﻿@model MDKAReservasi.Models.tblT_Reservasi
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm("Edit", "Reservasi", FormMethod.Post, new { @id = "reservasiFormId", @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    HtmlHelper.UnobtrusiveJavaScriptEnabled = false;
+
+    <div class="form-horizontal">
+        <h4>tblT_Reservasi</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Reservasi_PK)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ruangan_FK, "Ruangan", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Ruangan_FK", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Ruangan_FK, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SubjectReservasi, "Subject Reservasi", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SubjectReservasi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SubjectReservasi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TanggalReservasi, "Tanggal Reservasi", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TanggalReservasi, new { htmlAttributes = new { @type = "date", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TanggalReservasi, "", new { @type = "date", @class = "datepicker" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JamMulai, "Jam Mulai", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.JamMulai, new { htmlAttributes = new { @type = "time", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.JamMulai, "", new { @type = "time", @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JamSelesai, "Jam Selesai", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.JamSelesai, new { htmlAttributes = new { @type = "time", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.JamSelesai, "", new { @type = "time", @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/validasiR")
+}
