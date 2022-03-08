@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MDKAReservasi.Models;
+using Rotativa;
 
 namespace MDKAReservasi.Controllers
 {
@@ -88,9 +89,11 @@ namespace MDKAReservasi.Controllers
         {
             if (ModelState.IsValid)
             {
-                tblM_Ruangan.UpdatedBy = "SYSTEM";
-                tblM_Ruangan.UpdatedDate = DateTime.Now;
-                db.Entry(tblM_Ruangan).State = EntityState.Modified;
+                var tbl = db.tblM_Ruangan.SingleOrDefault(x => x.Ruangan_PK == tblM_Ruangan.Ruangan_PK);
+                tbl.UpdatedBy = "SYSTEM";
+                tbl.UpdatedDate = DateTime.Now;
+                tbl.Status_FK = tblM_Ruangan.Status_FK;
+                db.Entry(tbl).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -131,6 +134,17 @@ namespace MDKAReservasi.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public ActionResult PrintAllIndex()
+        {
+            var report = new ActionAsPdf("Index");
+            return report;
+        }
+
+        public ActionResult PrintDetail(int id)
+        {
+            var report = new ActionAsPdf("Edit", new { id = id });
+            return report;
         }
     }
 }
